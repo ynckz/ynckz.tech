@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ynckz-tech",
+  "compatibility_date": "2026-11-05",
+
+  // Сборка Zine кладёт готовый сайт сюда. main не нужен: это assets-only Worker.
+  "assets": {
+    "directory": "./public",
+  },
+
+  // Домен уже на Cloudflare, поэтому wrangler сам создаст DNS-запись
+  // и сертификат. Если деплой ругается на права токена — закомментируй
+  // routes и добавь домен руками: Workers → ynckz-tech → Settings →
+  // Domains & Routes → Add → Custom Domain → ynckz.tech.
+  "routes": [
+    {
+      "pattern": "ynckz.tech",
+      "custom_domain": true,
+    },
+  ],
+
+  // workers.dev-адрес оставляем как запасной вход.
+  "workers_dev": true,
+}

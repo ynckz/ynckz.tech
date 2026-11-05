@@ -1,0 +1,381 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<body id="body">
+<div class="card">
+  <div class="page">
+
+    <nav class="topnav">
+      <ctx :loop="$page.custom.get('nav')">
+        <a href="$loop.it.get('url')" data-soon="$loop.it.get('soon')" :text="$loop.it.get('text')"></a>
+      </ctx>
+    </nav>
+
+    <div class="frame">
+
+      <div class="rule"></div>
+
+      <div class="mini-info">
+        <div class="avatar"></div>
+        <div class="idbox">
+          <div class="prompt" :text="$page.custom.get('prompt')"></div>
+          <div class="aliases" :text="$page.custom.get('aliases')"></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <section id="contacts">
+        <h2 :text="$page.custom.get('contacts_title')"></h2>
+        <div class="list">
+          <ctx :loop="$page.custom.get('contacts')">
+            <div class="row">
+              <span class="slash">/</span>
+              <a class="label" href="$loop.it.get('url')" target="_blank" rel="noopener" :text="$loop.it.get('service')"></a>
+              <span class="val" data-copy="$loop.it.get('copy')" :text="$loop.it.get('value')"></span>
+              <span class="icon emoji" data-icon="$loop.it.get('icon')"></span>
+            </div>
+          </ctx>
+        </div>
+        <div class="sublinks">
+          <ctx :loop="$page.custom.get('keys')">
+            <a href="$loop.it.get('url')" data-soon="$loop.it.get('soon')" :text="$loop.it.get('text')"></a>
+          </ctx>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <section id="money">
+        <h2 :text="$page.custom.get('money_title')"></h2>
+        <div class="list">
+          <ctx :loop="$page.custom.get('money')">
+            <div class="row">
+              <span class="slash">/</span>
+              <a class="label" href="$loop.it.get('url')" target="_blank" rel="noopener" :text="$loop.it.get('service')"></a>
+              <span class="val" data-copy="$loop.it.get('copy')" :text="$loop.it.get('value')"></span>
+              <span class="icon emoji" data-icon="$loop.it.get('icon')"></span>
+            </div>
+          </ctx>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <section id="badges">
+        <h2 :text="$page.custom.get('badges_title')"></h2>
+        <div class="note" :text="$page.custom.get('badges_note')"></div>
+        <div class="badges">
+          <ctx :loop="$page.custom.get('badges')">
+            <a class="badge" data-badge="$loop.it.get('badge')" href="$loop.it.get('url')" target="_blank" rel="noopener" title="$loop.it.get('title')"></a>
+          </ctx>
+        </div>
+        <div class="note" :text="$page.custom.get('badges_mine_note')"></div>
+        <div class="badges">
+          <ctx :loop="$page.custom.get('badges_mine')">
+            <a class="badge" data-badge="$loop.it.get('badge')" href="$loop.it.get('url')" download="$loop.it.get('download')" title="$loop.it.get('title')"></a>
+          </ctx>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <footer>
+        <a class="tagline" href="$page.custom.get('footer_tagline_url')" target="_blank" rel="noopener" :text="$page.custom.get('footer_tagline')"></a>
+        <div class="footrow">
+          <span class="brand" :text="$page.custom.get('footer_brand')"></span>
+          <ctx :loop="$page.custom.get('footer_links')">
+            <a href="$loop.it.get('url')" target="_blank" rel="noopener" :text="$loop.it.get('text')"></a>
+          </ctx>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+<canvas class="camo" aria-hidden="true"></canvas>
+<canvas class="grain" aria-hidden="true"></canvas>
+<script>
+for (const a of document.querySelectorAll('a[href=""],a[href="#"]'))
+  a.addEventListener('click', e => e.preventDefault());
+
+// заглушки: при наведении текст меняется на "too lazy" (как "copied!" в .val),
+// ширина заперта, чтобы центр не прыгал. FOUT разведёт ширину запасного
+// шрифта (первые замки ставятся в метриках Segoe), поэтому после загрузки
+// шрифтов замки пересчитываются клон-замером
+const soonLinks = [...document.querySelectorAll('a[data-soon="1"]')];
+// честный замер однострочной ширины: живой бокс зажат флексом и прошлыми
+// замками, клон кладётся рядом и растёт свободно; nowrap даёт одну строку
+const measure = (a) => {
+  const c = a.cloneNode(true);
+  c.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;width:auto;top:0;left:-99999px';
+  a.parentNode.appendChild(c);
+  const w = c.getBoundingClientRect().width;
+  c.remove();
+  return w;
+};
+const relockWidth = () => {
+  for (const a of soonLinks) {
+    if (a.matches(':hover')) continue;
+    const w = measure(a);
+    if (w > 0) a.style.width = w + 'px';
+  }
+};
+for (const a of soonLinks) {
+  a.style.textAlign = 'center';
+  a.style.whiteSpace = 'nowrap';
+  a.style.width = measure(a) + 'px';
+  const was = a.textContent;
+  a.addEventListener('mouseenter', () => { a.textContent = 'too lazy'; });
+  a.addEventListener('mouseleave', () => { a.textContent = was; });
+}
+// РЕЛОК ШИРИН: главный грабли — fonts.ready может разрешиться ДО того,
+// как шрифт вообще начал грузиться (скрипт исполняется в момент парсинга,
+// лоадов ещё ноль), и замер встанет по запасному шрифту. Поэтому сначала
+// форсируем загрузку faces через fonts.load() и релоким после неё;
+// ready/load — страховка, повторный релок ничего не ломает
+// assets.css приезжает асинхронно (preload → stylesheet): @font-face появляются
+// уже ПОСЛЕ первого рендера, поэтому ловим и loadingdone — иначе fonts.load
+// отработает по пустому набору и замки останутся в метриках Segoe
+const relockSoon = () => setTimeout(relockWidth, 50);
+document.fonts
+  .load('16px Benzin', 'too lazy contacts projects peripherals extended { ssh keys } { pgp key }')
+  .then(relockSoon);
+document.fonts.ready.then(relockSoon);
+document.fonts.addEventListener('loadingdone', relockSoon);
+window.addEventListener('load', relockSoon);
+
+for (const el of document.querySelectorAll('.val')) {
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(el.dataset.copy).then(() => {
+      const was = el.textContent;
+      el.textContent = 'copied!';
+      setTimeout(() => { el.textContent = was; }, 900);
+    });
+  });
+}
+
+// камуфляж: те же 9 SVG-шаблонов пятен и 50 расстановок, что были в
+// статичной картинке. Каждое пятно плавно (smoothstep, 10–24 с) гуляет
+// вокруг своего места: положение, поворот, масштаб и цвет перетекают в
+// новую случайную точку рядом — «смена seed» без рывка. Дрейф ограничен,
+// поэтому рисунок не расползается и не сбивается в кучи.
+const camo = document.querySelector('.camo');
+if (camo) {
+  const c = camo.getContext('2d');
+  const VW = 1600, VH = 1200;          // поле, как у прежнего SVG
+  const D = [
+    'M99 0C106 8 154 63 149 69C143 75 50 72 35 70C21 68 -8 45 -22 44C-37 44 -125 67 -136 63C-146 59 -158 7 -151 0C-144 -7 -63 -18 -54 -25C-45 -32 -51 -75 -42 -82C-33 -89 46 -112 55 -108C64 -104 63 -40 67 -31C70 -22 92 -8 99 0Z',
+    'M218 0C219 6 134 32 122 37C110 42 81 59 72 61C63 63 25 60 13 63C2 67 -56 104 -68 104C-80 105 -128 75 -132 68C-136 60 -115 23 -114 16C-113 9 -116 -10 -116 -17C-116 -23 -117 -50 -113 -58C-110 -66 -85 -113 -75 -114C-64 -115 2 -71 14 -67C26 -63 66 -65 74 -62C81 -59 93 -37 105 -32C117 -27 216 -6 218 0Z',
+    'M224 0C222 12 108 55 91 61C74 68 34 77 18 83C2 90 -87 143 -101 140C-114 136 -145 58 -148 43C-150 28 -137 -25 -132 -39C-127 -52 -101 -118 -88 -122C-75 -126 3 -93 20 -89C36 -85 98 -85 116 -78C133 -70 226 -12 224 0Z',
+    'M123 0C123 7 104 35 97 39C90 43 45 46 35 48C26 50 -3 60 -14 62C-26 64 -96 76 -101 72C-107 68 -85 22 -83 15C-80 8 -69 -6 -71 -13C-72 -20 -106 -68 -101 -72C-97 -77 -27 -71 -16 -68C-5 -66 22 -45 32 -43C41 -41 92 -43 100 -40C107 -36 123 -7 123 0Z',
+    'M149 0C152 10 142 64 133 72C124 79 54 89 40 91C25 93 -27 97 -42 96C-56 94 -127 81 -135 73C-143 65 -143 11 -140 0C-137 -11 -109 -45 -101 -55C-94 -64 -62 -109 -50 -114C-37 -118 35 -114 48 -109C60 -104 91 -63 99 -54C108 -45 146 -10 149 0Z',
+    'M101 0C102 9 90 46 89 59C87 72 88 155 80 161C73 166 10 128 0 121C-10 114 -27 76 -36 73C-46 69 -112 86 -119 79C-127 73 -129 13 -128 0C-127 -13 -118 -67 -110 -73C-102 -79 -43 -62 -34 -68C-25 -74 -9 -136 -0 -143C9 -150 71 -163 78 -156C85 -148 77 -66 79 -53C81 -40 100 -9 101 0Z',
+    'M210 0C210 7 129 35 117 41C105 47 76 67 67 70C57 72 14 68 0 71C-14 75 -92 110 -103 108C-115 106 -141 58 -140 49C-139 40 -91 8 -91 0C-91 -8 -144 -43 -143 -50C-143 -57 -96 -82 -84 -87C-72 -92 -11 -113 -0 -110C11 -107 37 -55 47 -49C57 -44 107 -46 121 -42C134 -38 210 -7 210 0Z',
+    'M92 0C87 7 46 17 43 24C39 32 52 85 47 91C42 98 -9 104 -16 99C-23 95 -28 41 -34 35C-40 28 -81 28 -87 23C-93 18 -110 -21 -107 -28C-104 -34 -63 -53 -55 -56C-47 -59 -19 -68 -11 -69C-4 -70 25 -67 34 -66C43 -64 90 -60 95 -54C100 -49 96 -7 92 0Z',
+    'M149 0C142 9 65 23 57 31C48 40 54 97 45 105C35 113 -46 135 -55 129C-64 123 -62 48 -67 37C-71 26 -101 10 -108 0C-115 -10 -158 -77 -152 -84C-145 -91 -50 -84 -35 -82C-20 -80 10 -58 25 -58C39 -58 131 -83 141 -78C152 -74 156 -9 149 0Z'
+  ];
+  // разбираем шаблон на кубические сегменты: дальше контур можно плавно
+  // гнуть, интерполируя опорные точки между двумя «seed»-вариантами
+  const parse = d => {
+    const n = d.match(/-?\d+(?:\.\d+)?/g).map(Number);
+    let i = 0;
+    const shape = { x: n[i++], y: n[i++], segs: [] };
+    while (i < n.length) shape.segs.push(n.slice(i, i += 6));
+    return shape;
+  };
+  const T = D.map(parse);
+  const J = 14;                       // амплитуда искривления контура
+  const wobble = s => ({
+    x: s.x + rnd(-J, J), y: s.y + rnd(-J, J),
+    segs: s.segs.map(g => g.map(v => v + rnd(-J, J)))
+  });
+  // [шаблон, x, y, поворот°, масштаб, цвет] — исходный seed из старого SVG
+  const START = [
+    [4,153,47,184,1.72,'#4f6254'],
+    [5,454,160,30,0.76,'#3d5046'],
+    [7,688,128,159,1.56,'#3d5046'],
+    [4,983,144,166,1.45,'#4f6254'],
+    [0,1252,213,336,0.98,'#2c3d36'],
+    [7,1452,206,345,0.91,'#33453d'],
+    [4,88,265,248,1.38,'#33453d'],
+    [1,390,292,118,1.53,'#33453d'],
+    [2,789,305,40,0.99,'#33453d'],
+    [0,862,312,63,1.87,'#3d5046'],
+    [5,1237,438,205,1.28,'#33453d'],
+    [7,1393,310,199,1.51,'#2c3d36'],
+    [0,82,494,124,0.9,'#33453d'],
+    [6,510,578,79,0.81,'#3d5046'],
+    [0,587,636,44,0.92,'#3d5046'],
+    [5,919,636,247,1.53,'#33453d'],
+    [0,1204,628,165,0.99,'#2c3d36'],
+    [3,1416,639,87,1.59,'#586b5e'],
+    [0,50,944,89,1.61,'#2c3d36'],
+    [6,538,893,240,1.25,'#33453d'],
+    [2,681,775,324,0.79,'#2c3d36'],
+    [7,1052,743,163,1.22,'#33453d'],
+    [6,1276,940,290,1.31,'#3d5046'],
+    [1,1337,921,44,1.45,'#3d5046'],
+    [2,267,1146,263,1.14,'#4f6254'],
+    [6,391,1185,2,0.87,'#33453d'],
+    [7,587,1145,84,0.86,'#4f6254'],
+    [4,976,1008,282,1.8,'#4f6254'],
+    [5,1186,978,186,0.97,'#2c3d36'],
+    [3,1573,993,4,1.36,'#2c3d36'],
+    [4,1527,708,173,0.45,'#3d5046'],
+    [6,1679,528,205,0.75,'#2c3d36'],
+    [2,984,1291,145,0.45,'#3d5046'],
+    [2,110,858,22,0.44,'#33453d'],
+    [8,323,913,140,0.62,'#4f6254'],
+    [7,1334,1129,255,0.68,'#33453d'],
+    [4,1155,236,140,0.5,'#4f6254'],
+    [3,261,112,59,0.58,'#4f6254'],
+    [6,1491,961,272,0.48,'#3d5046'],
+    [8,303,636,12,0.76,'#4f6254'],
+    [0,75,637,271,0.48,'#455858'],
+    [4,784,548,49,0.39,'#455858'],
+    [7,1510,291,267,0.33,'#455858'],
+    [8,622,746,22,0.42,'#455858'],
+    [6,1083,326,59,0.39,'#455858'],
+    [8,122,941,184,0.52,'#455858'],
+    [0,1533,888,135,0.49,'#455858'],
+    [2,1336,124,190,0.34,'#455858'],
+    [3,900,345,199,0.44,'#455858'],
+    [8,1170,105,68,0.34,'#455858']
+  ];
+
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const BASE = hex('#455858');
+  // веса цветов как в исходной картинке: 14 / 10 / 7 / 8 / 1
+  const PALETTE = [];
+  [['#33453d', 14], ['#3d5046', 10], ['#2c3d36', 7],
+   ['#4f6254', 8], ['#586b5e', 1]].forEach(([h, n]) => {
+    for (let i = 0; i < n; i++) PALETTE.push(hex(h));
+  });
+
+  // новое состояние рядом с домашним: узкий дрейф, чтобы рисунок не
+  // расползался; изредка пятно меняет оттенок на другой из палитры
+  const make = (home, cut) => ({
+    x: home.x + rnd(-210, 210), y: home.y + rnd(-210, 210),
+    rot: home.rot + rnd(-28, 28),
+    sc: Math.min(2.2, Math.max(0.22, home.sc * rnd(0.75, 1.28))),
+    col: (cut ? BASE
+              : (Math.random() < 0.55 ? home.col
+                                      : PALETTE[(Math.random() * PALETTE.length) | 0])).slice()
+  });
+
+  const slots = START.map(([shape, x, y, rot, sc, col]) => {
+    const cut = col === '#455858';
+    const home = { x, y, rot, sc, col: hex(col) };
+    return {
+      base: T[shape], cut, home,
+      from: home,
+      to: make(home, cut),
+      fromS: T[shape], toS: wobble(T[shape]),
+      t: Math.random() * 0.35, dur: rnd(10000, 24000)
+    };
+  });
+
+  // виньетка из прежнего CSS-фона, теперь в canvas (единичный круг,
+  // растягивается по экрану при отрисовке) — stops как в CSS 1:1
+  const vignette = c.createRadialGradient(0, 0, 0.35, 0, 0, 1);
+  vignette.addColorStop(0, 'rgba(69,88,88,0)');
+  vignette.addColorStop(1, 'rgba(25,38,38,0.45)');
+
+  let dpr = 1, vw = 0, vh = 0, s = 1, ox = 0, oy = 0;
+  const fit = () => {
+    dpr = Math.min(devicePixelRatio || 1, 1.25);
+    vw = camo.clientWidth; vh = camo.clientHeight;
+    camo.width = Math.round(vw * dpr);
+    camo.height = Math.round(vh * dpr);
+    s = Math.max(vw / VW, vh / VH);  // cover: поле всегда закрывает экран
+    ox = (vw - VW * s) / 2;
+    oy = (vh - VH * s) / 2;
+  };
+  fit();
+  addEventListener('resize', fit);
+
+  let last = 0;
+  const frame = now => {
+    const dt = last ? Math.min(now - last, 160) : 16;
+    last = now;
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, vw, vh);
+    c.translate(ox, oy);
+    c.scale(s, s);
+
+    for (const sl of slots) {
+      sl.t += dt / sl.dur;
+      if (sl.t >= 1) {
+        sl.from = sl.to;
+        sl.to = make(sl.home, sl.cut);
+        sl.fromS = sl.toS;
+        sl.toS = wobble(sl.base);
+        sl.t = 0;
+        sl.dur = rnd(10000, 24000);
+      }
+      const e = sl.t * sl.t * (3 - 2 * sl.t); // smoothstep: ноль скорости по краям
+      const m = (a, b) => a + (b - a) * e;
+      const col = sl.from.col.map((v, i) => m(v, sl.to.col[i]));
+      c.save();
+      c.translate(m(sl.from.x, sl.to.x), m(sl.from.y, sl.to.y));
+      c.rotate(m(sl.from.rot, sl.to.rot) * Math.PI / 180);
+      c.scale(m(sl.from.sc, sl.to.sc), m(sl.from.sc, sl.to.sc));
+      c.fillStyle = 'rgb(' + (col[0] | 0) + ',' + (col[1] | 0) + ',' + (col[2] | 0) + ')';
+      c.beginPath();
+      const A = sl.fromS, B = sl.toS;
+      c.moveTo(m(A.x, B.x), m(A.y, B.y));
+      for (let i = 0; i < A.segs.length; i++) {
+        const u = A.segs[i], v = B.segs[i];
+        c.bezierCurveTo(m(u[0], v[0]), m(u[1], v[1]),
+                        m(u[2], v[2]), m(u[3], v[3]),
+                        m(u[4], v[4]), m(u[5], v[5]));
+      }
+      c.closePath();
+      c.fill();
+      c.restore();
+    }
+
+    // виньетка: тот же центр и пропорции, что были у CSS-градиента
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.save();
+    c.translate(vw / 2, vh * 0.35);
+    c.scale(vw * 0.82, vh * 0.82);
+    c.fillStyle = vignette;
+    c.fillRect(-1.2, -1.2, 2.4, 2.4);
+    c.restore();
+  };
+  const camoTick = () => { if (!document.hidden) frame(performance.now()); };
+  frame(performance.now());
+  setInterval(camoTick, 50);
+}
+
+// зерно: каждый тик — новые случайные пиксели на весь экран.
+// canvas в половинном разрешении растягивается CSS (image-rendering:
+// pixelated): рандома вчетверо меньше, а тайла и повторов нет.
+const grain = document.querySelector('.grain');
+if (grain) {
+  const g = grain.getContext('2d');
+  let img, buf;
+  const fit = () => {
+    grain.width = Math.ceil(innerWidth / 2);
+    grain.height = Math.ceil(innerHeight / 2);
+    img = g.createImageData(grain.width, grain.height);
+    buf = img.data;
+  };
+  fit();
+  addEventListener('resize', fit);
+
+  const tick = () => {
+    for (let i = 0; i < buf.length; i += 4) {
+      const v = Math.random() * 255;
+      buf[i] = buf[i + 1] = buf[i + 2] = v;
+      buf[i + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+  };
+  tick();
+  setInterval(() => { if (!document.hidden) tick(); }, 80);
+}
+</script>
+</body>

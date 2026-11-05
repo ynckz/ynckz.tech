@@ -1,0 +1,11 @@
+.zine_version = "0.14.0",
+.site = .simple(.{
+    .title = "ynckz.tech",
+    .host_url = "https://ynckz.tech",
+    .content_dir_path = "content",
+    .layouts_dir_path = "layouts",
+    .assets_dir_path = "assets",
+    // age.txt (и позже ssh/pgp) ставим принудительно: без $site.asset().link()
+    // Zine статик-файлы не копирует
+    .static_assets = ["age.txt", "ynckz.webp"],
+}),

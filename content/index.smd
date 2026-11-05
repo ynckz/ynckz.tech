@@ -1,0 +1,91 @@
+---
+.title = "ynckz.tech",
+.description = "ynckz / ckzyn / ункз - contacts",
+.date = .date("2026-09-16T00:00:00"),
+.layout = "index.shtml",
+.custom = .{
+    //
+    // ------------ шапка ------------
+    //
+    .prompt = "[ynckz@archlinux ~] $",
+    .aliases = "ynckz / ckzyn / ункз",
+
+    // верхнее меню
+    // soon = "1" -> при наведении текст меняется на "too lazy", клик погашен
+    .nav = [
+        .{ .text = "contacts",   .url = "/",   .soon = "" },
+        .{ .text = "projects",   .url = "",            .soon = "1" },
+        .{ .text = "peripherals", .url = "",           .soon = "1" },
+        .{ .text = "extended",   .url = "",            .soon = "1" },
+    ],
+
+    //
+    // ------------ контакты ------------
+    // service = кликается, ведёт на url
+    // value   = показывается, по клику копируется "copy"
+    // icon    = имя файла из assets-src/emoji/ (без .webp)
+    //
+    .contacts_title = "{contacts}",
+    .contacts = [
+        .{ .service = "discord",      .url = "https://discord.com/users/se3ex",      .value = "se3ex",            .copy = "se3ex",            .icon = "thumbsup" },
+        .{ .service = "telegram",     .url = "https://t.me/clowngeek",               .value = "clowngeek",        .copy = "clowngeek",        .icon = "fire" },
+        .{ .service = "tgChannel",    .url = "https://t.me/sourceOf_ynckz",          .value = "sourceOf_ynckz",   .copy = "sourceOf_ynckz",   .icon = "melting" },
+        .{ .service = "github",       .url = "https://github.com/ynckz",             .value = "ynckz",            .copy = "ynckz",            .icon = "pill" },
+        .{ .service = "rym",          .url = "https://rateyourmusic.com/~ynckz",     .value = "ynckz",            .copy = "ynckz",            .icon = "ghost" },
+        .{ .service = "listenbrainz", .url = "https://listenbrainz.org/user/ckzyn/", .value = "ckzyn",            .copy = "ckzyn",            .icon = "headphone" },
+        .{ .service = "letterboxd",   .url = "https://letterboxd.com/ynckz/",        .value = "ynckz",            .copy = "ynckz",            .icon = "crossedflags" },
+        .{ .service = "steam",        .url = "https://steamcommunity.com/id/ynckz1", .value = "ynckz1",           .copy = "ynckz1",           .icon = "train" },
+        .{ .service = "email",        .url = "mailto:ynckz@icloud.com",              .value = "ynckz@icloud.com", .copy = "ynckz@icloud.com", .icon = "soap" },
+        .{ .service = "youtube",      .url = "https://www.youtube.com/@byebyeao",    .value = "@byebyeao",        .copy = "@byebyeao",        .icon = "bone" },
+    ],
+
+    // ключи под контактами (файлы положить в assets/)
+    // age - реальный ключ (assets/age.txt), ssh/pgp - пока заглушки 
+    .keys = [
+        .{ .text = "{ age key }",  .url = "/age.txt", .soon = "" },
+        .{ .text = "{ ssh keys }", .url = "",         .soon = "1" },
+        .{ .text = "{ pgp key }",  .url = "",         .soon = "1" },
+    ],
+
+    //
+    // ------------ гавноооо ------------
+    //
+    .money_title = "{spend money here}",
+    .money = [
+        .{ .service = "TRC",       .url = "",                                               .value = "TF7gbjJ...rSoYq3",                       .copy = "TF7gbjJEEkjys4UvZ4cAHGSjgK3RrSoYq3",                   .icon = "rat" },
+        .{ .service = "ETH",       .url = "",                                               .value = "0x4Ead1...31735F",                       .copy = "0x4Ead1F5642F1d9Bd015926a14432B7110331735F",            .icon = "zombie" },
+        .{ .service = "GRAM",      .url = "",                                               .value = "UQBxU6...yNckz",                         .copy = "UQBxU6y4Mk5RBRIhRvXqgNE1au6vG45PhWgmPlUOqZvyNckz",   .icon = "coldface" },
+        .{ .service = "xrocket",   .url = "https://t.me/xrocket?start=inv_PK5hZXtUXEmoBDZ", .value = "t.me/xrocket?start=inv_PK5hZXtUXEmoBDZ", .copy = "https://t.me/xrocket?start=inv_PK5hZXtUXEmoBDZ",     .icon = "bags" },
+    ],
+
+    //
+    // ------------ 88x31 ------------
+    // class = имя файла из assets-src/badges/ до дефиса
+    //
+    .badges_title = "{88x31’s}",
+    .badges_note = "# favorite badges. my friends don’t have badges (i just don’t have friends nvm)",
+    .badges = [
+        .{ .badge = "00", .url = "https://sccl.cc",             .title = "sccl.cc" },
+        .{ .badge = "01", .url = "https://tei.pet",             .title = "alina teidesu" },
+        .{ .badge = "02", .url = "https://zine-ssg.io",         .title = "zine is beta" },
+        .{ .badge = "03", .url = "https://www.aseprite.org",    .title = "i draw in aseprite" },
+        .{ .badge = "04", .url = "https://otomir23.me",         .title = "otomir23's 88x31 button" },
+    ],
+    .badges_mine_note = "# badge of mine",
+    // url ведёт на сам файл: клик скачивает 88x31 (download в разметке)
+    .badges_mine = [
+        .{ .badge = "mine", .url = "/ynckz.webp", .download = "ynckz.webp", .title = "ynckz.tech" },
+    ],
+
+    //
+    // ------------ подвал ------------
+    //
+    .footer_tagline = "# i can't be original.",
+    .footer_tagline_url = "https://sccl.cc/",
+    .footer_brand = "index.smd",
+    .footer_links = [
+        .{ .text = "source",              .url = "https://github.com/ynckz/ynckz.tech" },
+        .{ .text = "built with zig zine", .url = "https://zine-ssg.io" },
+    ],
+},
+---

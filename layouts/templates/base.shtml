@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="head">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title :text="$site.title"></title>
+	<meta name="description" content="$page.description">
+	<style>
+/* ── токены из фигмы ───────────────────────────────────── */
+:root{
+  --page-bg:#455858;   /* фон вокруг карточки (Frame 1) */
+  --card-bg:#011111;   /* фон карточки (Frame 5)        */
+  --card-line:#9caf88; /* рамка карточки и аватара      */
+  --row:#50722c;       /* плашка строки                 */
+  --row-hover:#5e8534;
+  --muted:#79836d;     /* "/" , мелкий серый текст      */
+  --label:#c6d7b3;     /* название сервиса              */
+  --white:#fff;
+  --rule:#26382f;      /* горизонтальные разделители    */
+}
+*{box-sizing:border-box}
+html{background:var(--page-bg)}
+html,body{margin:0;padding:0}
+body{
+  color:var(--white);
+  font-family:"Benzin","Segoe UI",system-ui,sans-serif;
+  display:flex;justify-content:center;
+  min-height:100vh;padding:24px 16px;
+}
+
+/* ── фон: камуфляж (canvas) + живое зерно (canvas) ──────── */
+/* пятна камуфляжа рисует .camo и плавно переводит из одного
+   случайного состояния в другое; виньетка — в том же canvas */
+.camo{
+  position:fixed;inset:0;z-index:-1;
+  width:100%;height:100%;
+  pointer-events:none;
+}
+/* зерно: <canvas class="grain"> из index.shtml, каждый тик — новые
+   случайные пиксели. fixed + отдельный слой, вёрстку не трогает. */
+.grain{
+  position:fixed;inset:0;z-index:-1;
+  width:100%;height:100%;
+  pointer-events:none;opacity:.14;
+  image-rendering:pixelated;
+}
+/* ни камуфляж, ни зерно не отключаются при prefers-reduced-motion —
+   так просил владелец; движение медленное, зерно низкоконтрастное. */
+
+/* ── карточка: 800px контента + по 40px паддинга ───────── */
+/* паддинг 38px, а не 40: рамка 2px тоже часть Figma-отступа (38+2=40).
+   иначе контент 796px вместо 800 и всё съезжает на 2px */
+.card{
+  background:var(--card-bg);
+  border:2px solid var(--card-line);
+  border-radius:8px;
+  padding:0 38px 14px;
+  width:100%;max-width:880px;
+  /* margin:auto вместо align-items:center у body: если карточка выше
+     окна, её верх остаётся доступен скроллу, а не обрезается */
+  margin:auto;
+}
+.page{
+  width:100%;padding-top:14px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+
+.topnav{
+  display:flex;gap:16px;align-items:center;justify-content:center;
+  font-size:12px;line-height:12px;
+}
+.topnav a{color:var(--white);text-decoration:none}
+
+.frame{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+/* линии как в Figma: высота 0 в раскладке, сама полоска 2px рисуется ::before.
+   линия 1 — по центру пути (−1), линии 2–5 — на 2px выше пути (−2) */
+.rule{width:100%;height:0;flex-shrink:0}
+.rule::before{content:"";display:block;height:2px;background:var(--rule)}
+.rule:first-child::before{margin-top:-1px}
+.rule:not(:first-child)::before{margin-top:-2px}
+
+.mini-info{display:flex;align-items:flex-start;gap:16px;height:80px}
+.avatar{
+  width:80px;height:80px;flex-shrink:0;
+  border:1px solid var(--card-line);border-radius:8px;
+  background-size:cover;background-position:center;
+}
+.idbox{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.prompt{font-family:"Nova Mono",ui-monospace,Consolas,monospace;font-size:32px;line-height:36px;white-space:nowrap}
+.aliases{font-size:24px;line-height:28px;position:relative;top:-4px}
+
+section{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+h2{font-size:20px;line-height:20px;font-weight:400;color:var(--white);margin:0}
+
+/* ── строки контактов / донатов ────────────────────────── */
+.list{width:100%;display:flex;flex-direction:column;gap:2px}
+.row{
+  width:100%;display:flex;align-items:center;gap:8px;
+  background:var(--row);padding:12px;border-radius:8px;
+  font-size:20px;font-weight:500;line-height:16px;
+  overflow:hidden;transition:background .12s;
+}
+.row:hover{background:var(--row-hover)}
+.row .slash{color:var(--muted);font-weight:400;opacity:0}
+.row:hover .slash{opacity:1}
+.row .label{color:var(--label);text-decoration:none}
+.row .val{color:var(--white);opacity:.9;cursor:pointer}
+.row .slash,.row .label,.row .val{transform:translateY(-2px)}
+.row .icon{flex-shrink:0;opacity:.9}
+
+/* эмодзи-картинки вместо системного юникода */
+/* бокс 20×16: в раскладке эмодзи высотой 16 (line-height строки), иначе
+   строка 44px вместо 40. Сами картинки 40×40, contain впишет их в бокс */
+.emoji{
+  display:inline-block;width:20px;height:16px;
+  background-size:contain;background-repeat:no-repeat;background-position:center;
+  vertical-align:middle;
+}
+
+.sublinks{display:flex;align-items:center;gap:16px;font-size:16px;line-height:16px}
+.sublinks a{color:var(--muted);text-decoration:none}
+
+.note{color:var(--muted);opacity:.8;font-size:16px;line-height:16px;margin:0}
+
+.badges{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px}
+.badge{
+  display:block;width:88px;height:31px;flex-shrink:0;
+  background-size:cover;background-repeat:no-repeat;background-position:center;
+  image-rendering:pixelated;
+}
+
+footer{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.tagline{
+  color:var(--muted);opacity:.75;font-size:16px;line-height:16px;
+  text-decoration:underline;text-underline-position:from-font;
+}
+.footrow{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.footrow .brand{color:var(--white);font-size:20px;line-height:20px}
+.footrow a{color:var(--muted);opacity:.8;font-size:16px;line-height:16px;text-decoration:none}
+
+/* ── мобилка ───────────────────────────────────────────── */
+@media (max-width:820px){
+  body{padding:12px 8px}
+  .card{padding:0 16px 16px}
+  .topnav{flex-wrap:wrap;gap:12px}
+  .mini-info{height:auto}
+  .prompt{font-size:20px;line-height:24px;white-space:normal;word-break:break-all}
+  .aliases{font-size:16px;line-height:20px;top:0}
+  .row{flex-wrap:wrap;font-size:16px}
+  .sublinks{flex-wrap:wrap}
+}
+	</style>
+	<link rel="preload" as="style" href="$site.asset('assets.css').link()" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="$site.asset('assets.css').link()"></noscript>
+	<super>
+</head>
+<body id="body">
+	<super>
+</body>
+</html>
