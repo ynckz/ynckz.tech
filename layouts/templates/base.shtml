@@ -5,6 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title :text="$site.title"></title>
 	<meta name="description" content="$page.description">
+	<link rel="canonical" href="$page.custom.get('og_url')">
+	<meta name="theme-color" content="#455858">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="$site.title">
+	<meta property="og:url" content="$page.custom.get('og_url')">
+	<meta property="og:title" content="$page.custom.get('og_title')">
+	<meta property="og:description" content="$page.custom.get('og_description')">
+	<meta property="og:image" content="$page.custom.get('og_image')">
+	<meta property="og:image:type" content="image/webp">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="$page.custom.get('og_image_alt')">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="$page.custom.get('og_title')">
+	<meta name="twitter:description" content="$page.custom.get('og_description')">
+	<meta name="twitter:image" content="$page.custom.get('og_image')">
+	<meta name="twitter:image:alt" content="$page.custom.get('og_image_alt')">
+	<script type="application/ld+json" :html="$page.custom.get('ld')"></script>
 	<link rel="icon" href="$site.asset('favicon.webp').link()" type="image/webp" sizes="32x32">
 	<style>
 /* ── токены из фигмы ───────────────────────────────────── */

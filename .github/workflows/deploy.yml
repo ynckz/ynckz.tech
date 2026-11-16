@@ -39,6 +39,7 @@ jobs:
           test -f public/assets.css
           test -f public/ynckz.webp
           test -f public/favicon.webp
+          test -f public/ogcontacts.webp
 
       - name: Check page budget
         run: |
@@ -47,6 +48,22 @@ jobs:
           size = len(gzip.compress(pathlib.Path("public/index.html").read_bytes(), 9))
           print(f"index.html gzip: {size} B (limit 14600)")
           sys.exit(0 if size < 14600 else 1)
+          PY
+
+      - name: Check structured data
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, re, sys
+          html = pathlib.Path("public/index.html").read_text(encoding="utf-8")
+          blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+          if not blocks:
+              sys.exit("no JSON-LD block found")
+          for i, block in enumerate(blocks):
+              try:
+                  json.loads(block)
+              except Exception as exc:
+                  sys.exit(f"JSON-LD block #{i} is not valid JSON: {exc}")
+          print(f"JSON-LD ok: {len(blocks)} block(s)")
           PY
 
       - name: Deploy to Cloudflare Workers

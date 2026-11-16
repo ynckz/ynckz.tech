@@ -5,6 +5,25 @@
 .layout = "index.shtml",
 .custom = .{
     //
+    // ------------ превью ссылки (og / twitter) ------------
+    // og:image обязан быть абсолютным URL: краулеры не умеют относительные.
+    // Картинка — отдельный файл /ogcontacts.webp, в первую загрузку не входит.
+    //
+    .og_url = "https://ynckz.tech/",
+    .og_title = "ynckz - contacts",
+    .og_description = "ynckz / ckzyn / ункз - contacts",
+    .og_image = "https://ynckz.tech/ogcontacts.webp",
+    .og_image_alt = "ynckz - contacts card",
+
+    //
+    // ------------ JSON-LD (schema.org/Person) ------------
+    // Подсказка для Google: как зовут, какие ещё ники, какие профили — его же.
+    // sameAs = только страницы профилей, не контактные ссылки и не мессенджеры-инвайты.
+    // Строка минифицирована: в шаблоне она целиком уходит в <script type="application/ld+json">.
+    //
+    .ld = "{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"ynckz\",\"alternateName\":[\"ckzyn\",\"ункз\"],\"url\":\"https://ynckz.tech/\",\"description\":\"ynckz / ckzyn / ункз - contacts\",\"sameAs\":[\"https://github.com/ynckz\",\"https://t.me/clowngeek\",\"https://t.me/sourceOf_ynckz\",\"https://rateyourmusic.com/~ynckz\",\"https://listenbrainz.org/user/ckzyn/\",\"https://letterboxd.com/ynckz/\",\"https://steamcommunity.com/id/ynckz1\",\"https://www.youtube.com/@byebyeao\"]}",
+
+    //
     // ------------ шапка ------------
     //
     .prompt = "[ynckz@archlinux ~] $",
