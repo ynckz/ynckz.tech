@@ -11,7 +11,8 @@ Copyright (c) 2026 ynckz.
 ## Контент сайта
 
 `content/index.smd` (тексты, ссылки, ники), `assets-src/badges/mine-ynckz.webp`,
-`assets/ynckz.webp` — © ynckz, all rights reserved.
+`assets/ynckz.webp`, `assets-src/favicon.png`, `assets/favicon.webp` — © ynckz,
+all rights reserved.
 
 `assets-src/avatar-original.jpg`, `assets-src/avatar.webp` — перекрашенный
 и сжатый кадр из аниме; права на исходное изображение принадлежат его

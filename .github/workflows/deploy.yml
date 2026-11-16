@@ -38,6 +38,7 @@ jobs:
           test -f public/index.html
           test -f public/assets.css
           test -f public/ynckz.webp
+          test -f public/favicon.webp
 
       - name: Check page budget
         run: |
