@@ -29,11 +29,14 @@ Steins;Gate). Источник — пост [@DailySteinsGate](https://x.com/Dai
 
 ## Шрифты
 
-**Benzin** — `font-source/benzin-*.ttf`, `assets-src/fonts/benzin-*.woff2`.
-Free for Personal Use (см. `font-source/info.txt`,
-источник: <https://fontlot.com/benzin-font-family/>). Лицензия MIT на шрифт
-не распространяется, права у автора шрифта. Для коммерческого использования
-или распространения вне личного проекта нужна отдельная лицензия.
+**Allo / Allo Cyr** — `font-source/allo-cyr-*.ttf`,
+`assets-src/fonts/allo-cyr-*.woff2`. Оригинальный Allo 1.0 © 2026 Josh Puckett
+(<https://allo.joshpuckett.me/>, <https://github.com/joshpuckett/allo>),
+кириллические глифы из Inter © 2016 The Inter Project Authors. Статический
+кириллический билд — <https://github.com/ynckz/allo-cyr>. Лицензия SIL Open Font
+License 1.1, текст — `font-source/OFL-Allo-Cyr.txt`. MIT на шрифт не
+распространяется; OFL разрешает использование, изменение и встраивание, но не
+продажу шрифта отдельно.
 
 **Nova Mono** — `font-source/novamono.ttf`,
 `assets-src/fonts/novamono-regular.woff2`. SIL Open Font License 1.1,

@@ -53,8 +53,8 @@ def main() -> int:
 
     # --- шрифты ---
     fonts = [
-        ("Benzin", 400, SRC / "fonts" / "benzin-regular.woff2"),
-        ("Benzin", 500, SRC / "fonts" / "benzin-medium.woff2"),
+        ("Allo Cyr", 400, SRC / "fonts" / "allo-cyr-regular.woff2"),
+        ("Allo Cyr", 500, SRC / "fonts" / "allo-cyr-medium.woff2"),
         ("Nova Mono", 400, SRC / "fonts" / "novamono-regular.woff2"),
     ]
     for family, weight, path in fonts:

@@ -42,7 +42,7 @@ html{background:var(--page-bg)}
 html,body{margin:0;padding:0}
 body{
   color:var(--white);
-  font-family:"Benzin","Segoe UI",system-ui,sans-serif;
+  font-family:"Allo Cyr","Segoe UI",system-ui,sans-serif;
   display:flex;justify-content:center;
   min-height:100vh;padding:24px 16px;
 }
