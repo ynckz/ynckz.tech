@@ -53,8 +53,8 @@ def main() -> int:
 
     # --- шрифты ---
     fonts = [
-        ("Allo Cyr", 500, SRC / "fonts" / "allo-cyr-medium.woff2"),
-        ("Allo Cyr", 700, SRC / "fonts" / "allo-cyr-bold.woff2"),
+        ("Allo", 500, SRC / "fonts" / "allo-medium.woff2"),
+        ("Allo", 700, SRC / "fonts" / "allo-bold.woff2"),
         ("Benzin", 400, SRC / "fonts" / "benzin-regular.woff2"),
         ("Nova Mono", 400, SRC / "fonts" / "novamono-regular.woff2"),
     ]

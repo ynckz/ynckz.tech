@@ -34,7 +34,7 @@ def main() -> int:
     # // комментарии не рендерятся -- выкидываем
     smd = re.sub(r"^\s*//.*$", "", smd, flags=re.M)
 
-    # prompt рисуется Nova Mono, всё остальное -- Allo Cyr
+    # prompt рисуется Nova Mono, всё остальное -- Allo
     prompt_m = re.search(r'\.prompt\s*=\s*"((?:[^"\\]|\\.)*)"', smd)
     prompt = prompt_m.group(1) if prompt_m else ""
     rest = smd.replace(prompt_m.group(0), "") if prompt_m else smd
@@ -52,8 +52,8 @@ def main() -> int:
     allo_text += "".join(re.findall(r">([^<>$\n]+)<", shtml))
 
     checks = [
-        ("allo-cyr-medium", allo_text),
-        ("allo-cyr-bold", allo_text),
+        ("allo-medium", allo_text),
+        ("allo-bold", allo_text),
         ("benzin-regular", allo_text),
         ("novamono-regular", prompt),
     ]

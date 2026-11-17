@@ -42,7 +42,7 @@ html{background:var(--page-bg)}
 html,body{margin:0;padding:0}
 body{
   color:var(--white);
-  font-family:"Allo Cyr","Segoe UI",system-ui,sans-serif;
+  font-family:"Allo","Segoe UI",system-ui,sans-serif;
   /* Allo светлее Benzin при том же номинале: Regular → Medium,
      строки — Bold (700); Regular в сабсет не входит */
   font-weight:500;

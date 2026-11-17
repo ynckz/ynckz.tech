@@ -1,0 +1,5 @@
+Source: https://github.com/joshpuckett/allo/pull/8
+Build:  https://github.com/degroshi/allo/tree/cyrillic
+Commit: 9623d58b3ea904c1f71d1aa17fc42d35e6c539b7
+Files:  fonts/otf/Allo-Medium.otf, fonts/otf/Allo-Bold.otf
+License: SIL Open Font License 1.1 (OFL-Allo.txt)

@@ -29,12 +29,14 @@ Steins;Gate). Источник — пост [@DailySteinsGate](https://x.com/Dai
 
 ## Шрифты
 
-**Allo / Allo Cyr** — `font-source/allo-cyr-*.ttf`,
-`assets-src/fonts/allo-cyr-*.woff2`. Оригинальный Allo 1.0 © 2026 Josh Puckett
+**Allo** — `font-source/allo-medium.otf`, `font-source/allo-bold.otf`,
+`assets-src/fonts/allo-*.woff2`. Оригинальный Allo © 2026 Josh Puckett
 (<https://allo.joshpuckett.me/>, <https://github.com/joshpuckett/allo>),
-кириллические глифы из Inter © 2016 The Inter Project Authors. Статический
-кириллический билд — <https://github.com/ynckz/allo-cyr>. Лицензия SIL Open Font
-License 1.1, текст — `font-source/OFL-Allo-Cyr.txt`. MIT на шрифт не
+кириллица © 2026 Degroshi (<https://github.com/degroshi>), часть глифов из
+Inter © 2016 The Inter Project Authors. Кириллицу добавили в исходники Allo
+в PR #8 (<https://github.com/joshpuckett/allo/pull/8>, ветка `degroshi:cyrillic`,
+коммит `9623d58`); оттуда взяты статические OTF Medium и Bold. Лицензия SIL Open
+Font License 1.1, текст — `font-source/OFL-Allo.txt`. MIT на шрифт не
 распространяется; OFL разрешает использование, изменение и встраивание, но не
 продажу шрифта отдельно.
 
