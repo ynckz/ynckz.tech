@@ -66,10 +66,12 @@ jobs:
           print(f"JSON-LD ok: {len(blocks)} block(s)")
           PY
 
-      # Тестовый домен не должен попадать в поиск.
-      - name: Add noindex robots.txt
+      # Тестовый домен не должен попадать в поиск. robots.txt не годится:
+      # Cloudflare подмешивает в него свой managed-контент, поэтому ставим
+      # X-Robots-Tag через _headers (Workers Static Assets).
+      - name: Add noindex headers
         run: |
-          printf 'User-agent: *\nDisallow: /\n' > public/robots.txt
+          printf '/*\n  X-Robots-Tag: noindex\n' > public/_headers
 
       - name: Deploy to Cloudflare Workers (test)
         uses: cloudflare/wrangler-action@v4
