@@ -55,7 +55,7 @@ check-glyphs.py                ← проверяет шо все символы
 | файл | gzip |
 |---|---|
 | `index.html` (HTML + критический CSS и JS) | **10.4 KB** |
-| `assets.css` (шрифты + картинки, base64) | 86.0 KB |
+| `assets.css` (шрифты + картинки, base64) | 85.0 KB |
 
 `index.html` влезает в первое окно TCP (≤14.6 KB), `assets.css` грузится без блокировки рендера.
 

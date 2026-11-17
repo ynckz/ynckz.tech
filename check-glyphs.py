@@ -52,8 +52,8 @@ def main() -> int:
     allo_text += "".join(re.findall(r">([^<>$\n]+)<", shtml))
 
     checks = [
-        ("allo-cyr-regular", allo_text),
         ("allo-cyr-medium", allo_text),
+        ("allo-cyr-bold", allo_text),
         ("novamono-regular", prompt),
     ]
 

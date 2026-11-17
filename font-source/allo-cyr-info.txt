@@ -6,7 +6,8 @@ Allo Cyr — статический кириллический билд Allo
 
 Собран из Allo 1.0 + Inter 4.1 (кириллица), ROND=50, opsz=14.
 Начертания в билде: Regular 400, Medium 500, Bold 700.
-В проекте используются Regular и Medium.
+В проекте используются Medium и Bold (Regular → Medium, Medium → Bold:
+Allo светлее Benzin, см. docs/DESIGN.md).
 
 Лицензия: SIL Open Font License 1.1 — см. OFL-Allo-Cyr.txt.
 Allo © 2026 Josh Puckett. Inter © 2016 The Inter Project Authors.

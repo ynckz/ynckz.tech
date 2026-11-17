@@ -43,6 +43,9 @@ html,body{margin:0;padding:0}
 body{
   color:var(--white);
   font-family:"Allo Cyr","Segoe UI",system-ui,sans-serif;
+  /* Allo светлее Benzin при том же номинале: Regular → Medium,
+     строки — Bold (700); Regular в сабсет не входит */
+  font-weight:500;
   display:flex;justify-content:center;
   min-height:100vh;padding:24px 16px;
 }
@@ -109,22 +112,24 @@ body{
 .aliases{font-size:24px;line-height:28px;position:relative;top:-4px}
 
 section{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-h2{font-size:20px;line-height:20px;font-weight:400;color:var(--white);margin:0}
+h2{font-size:20px;line-height:20px;font-weight:500;color:var(--white);margin:0}
 
 /* ── строки контактов / донатов ────────────────────────── */
 .list{width:100%;display:flex;flex-direction:column;gap:2px}
 .row{
   width:100%;display:flex;align-items:center;gap:8px;
   background:var(--row);padding:12px;border-radius:8px;
-  font-size:20px;font-weight:500;line-height:16px;
+  font-size:20px;font-weight:700;line-height:16px;
   overflow:hidden;transition:background .12s;
 }
 .row:hover{background:var(--row-hover)}
-.row .slash{color:var(--muted);font-weight:400;opacity:0}
+.row .slash{color:var(--muted);opacity:0}
 .row:hover .slash{opacity:1}
 .row .label{color:var(--label);text-decoration:none}
 .row .val{color:var(--white);opacity:.9;cursor:pointer}
-.row .slash,.row .label,.row .val{transform:translateY(-2px)}
+/* в том же line-box Allo садится на 1px ниже Benzin: −1px вместо −2px
+   ставит базовую линию строк как в Figma (проверено по пикселям) */
+.row .slash,.row .label,.row .val{transform:translateY(-1px)}
 .row .icon{flex-shrink:0;opacity:.9}
 
 /* эмодзи-картинки вместо системного юникода */
