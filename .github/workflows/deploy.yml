@@ -40,6 +40,8 @@ jobs:
           test -f public/ynckz.webp
           test -f public/favicon.webp
           test -f public/ogcontacts.webp
+          test -f public/robots.txt
+          test -f public/sitemap.xml
 
       - name: Check page budget
         run: |
@@ -65,6 +67,17 @@ jobs:
                   sys.exit(f"JSON-LD block #{i} is not valid JSON: {exc}")
           print(f"JSON-LD ok: {len(blocks)} block(s)")
           PY
+
+      # lastmod в sitemap.xml = дата последнего коммита (YYYY-MM-DD), а не дата
+      # сборки: иначе каждый деплой врёт краулерам про «свежий» контент.
+      - name: Stamp sitemap lastmod
+        run: |
+          set -eu
+          d=$(git log -1 --format=%cs)
+          test -n "$d"
+          sed -i "s|<lastmod>[^<]*</lastmod>|<lastmod>${d}</lastmod>|" public/sitemap.xml
+          grep -q "<lastmod>${d}</lastmod>" public/sitemap.xml
+          echo "sitemap lastmod: $d"
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v4

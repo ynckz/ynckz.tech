@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Одна страница, один URL. <lastmod> подставляет CI (deploy.yml) датой
+     последнего коммита; руками править не нужно. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ynckz.tech/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+</urlset>

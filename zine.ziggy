@@ -6,6 +6,7 @@
     .layouts_dir_path = "layouts",
     .assets_dir_path = "assets",
     // age.txt (и позже ssh/pgp) ставим принудительно: без $site.asset().link()
-    // Zine статик-файлы не копирует
-    .static_assets = ["age.txt", "ynckz.webp", "favicon.webp", "ogcontacts.webp"],
+    // Zine статик-файлы не копирует. robots.txt и sitemap.xml — по той же
+    // причине: их никто не линкует из шаблона.
+    .static_assets = ["age.txt", "robots.txt", "sitemap.xml", "ynckz.webp", "favicon.webp", "ogcontacts.webp"],
 }),
