@@ -105,6 +105,7 @@
     .footer_links = [
         .{ .text = "source",              .url = "https://github.com/ynckz/ynckz.tech" },
         .{ .text = "built with zig zine", .url = "https://zine-ssg.io" },
+        .{ .text = "test font version",   .url = "https://test.ynckz.tech" },
     ],
 },
 ---
