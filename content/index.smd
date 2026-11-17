@@ -89,6 +89,8 @@
         .{ .badge = "02", .url = "https://zine-ssg.io",         .title = "zine is beta" },
         .{ .badge = "03", .url = "https://www.aseprite.org",    .title = "i draw in aseprite" },
         .{ .badge = "04", .url = "https://otomir23.me",         .title = "otomir23's 88x31 button" },
+        .{ .badge = "05", .url = "https://entitybtw.ru/",       .title = "entitybtw" },
+        .{ .badge = "06", .url = "https://belomaxorka.dev/",    .title = "belomaxorka" },
     ],
     .badges_mine_note = "# badge of mine",
     // url ведёт на сам файл: клик скачивает 88x31 (download в разметке)

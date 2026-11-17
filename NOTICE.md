@@ -58,6 +58,8 @@ MIT их не покрывает. Для коммерческого проект
 | `02-zine-beta.webp` | <https://zine-ssg.io> |
 | `03-aseprite.webp` | <https://www.aseprite.org> |
 | `04-otomir.webp` | <https://otomir23.me> |
+| `05-entitybtw.webp` | <https://entitybtw.ru> |
+| `06-belomaxorka.webp` | <https://belomaxorka.dev> |
 
 Они лежат здесь как ссылки/превью и не лицензируются этим репозиторием.
 
