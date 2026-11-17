@@ -112,7 +112,9 @@ body{
 .aliases{font-size:24px;line-height:28px;position:relative;top:-4px}
 
 section{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-h2{font-size:20px;line-height:20px;font-weight:500;color:var(--white);margin:0}
+/* всё в фигурных скобках ({contacts}, {88x31’s}, { age key } …) — Benzin,
+   остальной текст — Allo: так ближе к макету, где Benzin был везде */
+h2{font-family:"Benzin","Segoe UI",system-ui,sans-serif;font-size:20px;line-height:20px;font-weight:400;color:var(--white);margin:0}
 
 /* ── строки контактов / донатов ────────────────────────── */
 .list{width:100%;display:flex;flex-direction:column;gap:2px}
@@ -141,7 +143,7 @@ h2{font-size:20px;line-height:20px;font-weight:500;color:var(--white);margin:0}
   vertical-align:middle;
 }
 
-.sublinks{display:flex;align-items:center;gap:16px;font-size:16px;line-height:16px}
+.sublinks{display:flex;align-items:center;gap:16px;font-family:"Benzin","Segoe UI",system-ui,sans-serif;font-weight:400;font-size:16px;line-height:16px}
 .sublinks a{color:var(--muted);text-decoration:none}
 
 .note{color:var(--muted);opacity:.8;font-size:16px;line-height:16px;margin:0}

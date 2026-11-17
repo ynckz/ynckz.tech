@@ -138,8 +138,10 @@ for (const a of soonLinks) {
 // отработает по пустому набору и замки останутся в метриках Segoe
 const relockSoon = () => setTimeout(relockWidth, 50);
 document.fonts
-  .load('16px Allo Cyr', 'too lazy contacts projects peripherals extended { ssh keys } { pgp key }')
+  .load('16px Allo Cyr', 'too lazy contacts projects peripherals extended')
   .then(relockSoon);
+// ключи в скобках — Benzin, его тоже надо дождаться до замера замков
+document.fonts.load('16px Benzin', '{ ssh keys } { pgp key }').then(relockSoon);
 document.fonts.ready.then(relockSoon);
 document.fonts.addEventListener('loadingdone', relockSoon);
 window.addEventListener('load', relockSoon);

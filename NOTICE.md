@@ -38,6 +38,14 @@ License 1.1, текст — `font-source/OFL-Allo-Cyr.txt`. MIT на шрифт 
 распространяется; OFL разрешает использование, изменение и встраивание, но не
 продажу шрифта отдельно.
 
+**Benzin** — `font-source/benzin-regular.ttf`,
+`assets-src/fonts/benzin-regular.woff2`. © Roman Postovoy (Supremat).
+Free for Personal Use (см. `font-source/info.txt`,
+источник: <https://fontlot.com/benzin-font-family/>). Лицензия MIT на шрифт
+не распространяется, права у автора шрифта. Для коммерческого использования
+или распространения вне личного проекта нужна отдельная лицензия. На сайте
+Benzin набран только текст в фигурных скобках (`{contacts}`, `{ age key }` …).
+
 **Nova Mono** — `font-source/novamono.ttf`,
 `assets-src/fonts/novamono-regular.woff2`. SIL Open Font License 1.1,
 текст лицензии — `font-source/OFL.txt`. © 2011 wmk69, Reserved Font Name

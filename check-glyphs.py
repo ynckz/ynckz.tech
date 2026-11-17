@@ -54,6 +54,7 @@ def main() -> int:
     checks = [
         ("allo-cyr-medium", allo_text),
         ("allo-cyr-bold", allo_text),
+        ("benzin-regular", allo_text),
         ("novamono-regular", prompt),
     ]
 
