@@ -8,7 +8,7 @@ content/index.smd              ← контент индех страницы
 layouts/index.shtml            ← каркас страницы (циклы по данным из .smd)
 layouts/templates/base.shtml   ← <head> + весь ксс инлайном
 assets-src/                    ← исходники: avatar, badges/, emoji/, fonts/
-font-source/                   ← оригинальные шрифиты и тд залупа
+font-source/                   ← лицензии и справка по шрифтам (сами OTF — в ynckz/allo)
 assets/assets.css              ← СГЕНЕРИРОВАН build-assets.py, руками НЕ ТРОГАТЬ СУКАА
 build-assets.py                ← собирает assets.css из assets-src/
 check-glyphs.py                ← проверяет шо все символы страницы есть в шрифтах
@@ -73,7 +73,8 @@ check-glyphs.py                ← проверяет шо все символы
 
 Шрифт Allo — SIL OFL 1.1, можно использовать и в коммерческих проектах
 (кириллица — из PR #8 к исходникам Allo; в проекте шрифт растянут по
-горизонтали на 25%, это разрешено OFL). Benzin (им набран только текст
+горизонтали на 25%, это разрешено OFL — растянутые исходники и скрипт лежат
+в <https://github.com/ynckz/allo>, ветка `wide`). Benzin (им набран только текст
 в `{}`) — Free for Personal Use, для коммерции нужна отдельная лицензия.
 Apple-эмодзи — серая зона: для коммерческого проекта замени их на Noto Emoji
 или Twemoji.

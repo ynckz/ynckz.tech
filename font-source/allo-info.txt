@@ -3,5 +3,8 @@ Build:  https://github.com/degroshi/allo/tree/cyrillic
 Commit: 9623d58b3ea904c1f71d1aa17fc42d35e6c539b7
 Files:  fonts/otf/Allo-Medium.otf, fonts/otf/Allo-Bold.otf
 License: SIL Open Font License 1.1 (OFL-Allo.txt)
-Modified: horizontally widened 125% by font-source/widen-allo.py
-          (outlines, metrics, GPOS kerning; OFL allows modification)
+Wide:   https://github.com/ynckz/allo (branch wide, commit 674ca88)
+Modified: horizontally widened to 125% by tools/wide/widen.py
+          (outlines, metrics, kerning; family renamed "Allo Wide")
+Notes:  the OTF sources are not kept in this repo any more. The woff2 subsets
+        in assets-src/fonts are what the page actually loads.
