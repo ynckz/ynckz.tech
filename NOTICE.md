@@ -35,10 +35,13 @@ Steins;Gate). Источник — пост [@DailySteinsGate](https://x.com/Dai
 кириллица © 2026 Degroshi (<https://github.com/degroshi>), часть глифов из
 Inter © 2016 The Inter Project Authors. Кириллицу добавили в исходники Allo
 в PR #8 (<https://github.com/joshpuckett/allo/pull/8>, ветка `degroshi:cyrillic`,
-коммит `9623d58`); оттуда взяты статические OTF Medium и Bold. Лицензия SIL Open
-Font License 1.1, текст — `font-source/OFL-Allo.txt`. MIT на шрифт не
-распространяется; OFL разрешает использование, изменение и встраивание, но не
-продажу шрифта отдельно.
+коммит `9623d58`); оттуда взяты статические OTF Medium и Bold. Сабсеты собраны
+из модифицированной версии: контуры, метрики и кернинг растянуты по горизонтали
+на 25% (`font-source/widen-allo.py`), чтобы ширина текста совпадала с макетом,
+набранным Benzin. Это производная работа по OFL, имя шрифта не зарезервировано.
+Лицензия SIL Open Font License 1.1, текст — `font-source/OFL-Allo.txt`. MIT на
+шрифт не распространяется; OFL разрешает использование, изменение и встраивание,
+но не продажу шрифта отдельно.
 
 **Benzin** — `font-source/benzin-regular.ttf`,
 `assets-src/fonts/benzin-regular.woff2`. © Roman Postovoy (Supremat).

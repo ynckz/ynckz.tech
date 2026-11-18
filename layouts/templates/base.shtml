@@ -44,7 +44,9 @@ body{
   color:var(--white);
   font-family:"Allo","Segoe UI",system-ui,sans-serif;
   /* Allo светлее Benzin при том же номинале: Regular → Medium,
-     строки — Bold (700); Regular в сабсет не входит */
+     строки — Bold (700); Regular в сабсет не входит.
+     Сабсеты растянуты по горизонтали на 25% (font-source/widen-allo.py):
+     иначе Allo заметно уже Benzin и текстовые боксы не совпадают с Figma */
   font-weight:500;
   display:flex;justify-content:center;
   min-height:100vh;padding:24px 16px;
