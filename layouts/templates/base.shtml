@@ -131,9 +131,6 @@ h2{font-family:"Benzin","Segoe UI",system-ui,sans-serif;font-size:20px;line-heig
 .row:hover .slash{opacity:1}
 .row .label{color:var(--label);text-decoration:none}
 .row .val{color:var(--white);opacity:.9;cursor:pointer}
-/* в том же line-box Allo садится на 1px ниже Benzin: −1px вместо −2px
-   ставит базовую линию строк как в Figma (проверено по пикселям) */
-.row .slash,.row .label,.row .val{transform:translateY(-1px)}
 .row .icon{flex-shrink:0;opacity:.9}
 
 /* эмодзи-картинки вместо системного юникода */
@@ -174,7 +171,10 @@ footer{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
   .mini-info{height:auto}
   .prompt{font-size:20px;line-height:24px;white-space:normal;word-break:break-all}
   .aliases{font-size:16px;line-height:20px;top:0}
-  .row{flex-wrap:wrap;font-size:16px}
+  .row{display:block;position:relative;padding:12px 40px 12px 12px;font-size:16px;word-spacing:4px}
+  .row .slash{display:none}
+  .row .val{overflow-wrap:anywhere}
+  .row .icon.emoji{position:absolute;right:12px;top:50%;margin-top:-8px}
   .sublinks{flex-wrap:wrap}
 }
 	</style>
